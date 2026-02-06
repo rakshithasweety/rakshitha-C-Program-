@@ -1,0 +1,63 @@
+#include <stdio.h>
+
+// structure for process
+struct process
+{
+    int pid;
+    int burst;
+    int priority;
+};
+
+int main()
+{
+    int n, i, j, min;
+    int time = 0;
+    struct process p[10], temp;
+
+    printf("Enter number of processes: ");
+    scanf("%d", &n);
+
+    // input burst time and priority
+    for(i = 0; i < n; i++)
+    {
+        printf("\nProcess %d Burst Time: ", i+1);
+        scanf("%d", &p[i].burst);
+
+        printf("Process %d Priority (lower value = higher priority): ", i+1);
+        scanf("%d", &p[i].priority);
+
+        p[i].pid = i+1;
+    }
+
+    // sorting based on priority (Selection Sort)
+    for(i = 0; i < n; i++)
+    {
+        min = i;
+        for(j = i+1; j < n; j++)
+        {
+            if(p[j].priority < p[min].priority)
+            {
+                min = j;
+            }
+        }
+
+        if(min != i)
+        {
+            temp = p[i];
+            p[i] = p[min];
+            p[min] = temp;
+        }
+    }
+
+    // display schedule order
+    printf("\nSchedule Order:\n");
+    printf("PID\tBurst\tPriority\tCompletion Time\n");
+
+    for(i = 0; i < n; i++)
+    {
+        time = time + p[i].burst;
+        printf("%d\t%d\t%d\t\t%d\n", p[i].pid, p[i].burst, p[i].priority, time);
+    }
+
+    return 0;
+}
