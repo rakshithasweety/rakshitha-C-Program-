@@ -1,0 +1,14 @@
+#include<stdio.h>
+int main()
+{
+  FILE*fp;
+    fp =fopen("data.tet","a");
+    if(fp ==NULL){
+    printf("file cannot be opened!\n");
+    return 1;
+    }
+    fprintf(fp,"this line is appended at the end.\n");
+    fclose(fp);
+    printf(Data appended successfully.\n");
+    return 0;
+}
